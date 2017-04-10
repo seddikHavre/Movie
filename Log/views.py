@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import *
-
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib.auth.models import User
 
@@ -18,13 +18,17 @@ def index(request, **kwargs):
         print(str(username) + "  +++++++++++  " + str(password))
 
     user = authenticate(request, username=username, password=password, **kwargs)
-    print (str(user))
     if user is not None:
         login(request, user)
-        return HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
+        return redirect(request.POST.get('next', settings.LOGIN_REDIRECT_URL))
     return render(request, 'vue.html')
+
+
+
+def profile(request):
+    return render(request, 'log.html')
 
 
 def getout(request):
     logout(request)
-    return render(request, 'vue.html')
+    return render(request, 'log.html')

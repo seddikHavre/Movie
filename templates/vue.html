@@ -1,10 +1,394 @@
 {% load bootstrap3 %}
 
-{# Display a form #}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Les films les mieux notés </title>
+      <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+      <style type="text/css">
 
-<form method="post"  role="form" action="">
-{% csrf_token %}
-<input type="text" name="username" placeholder="Utilisateur">
-<input type="password" name="password" placeholder="Mot de passe">
-<input type="submit" value="login" />
-</form>
+body, html {
+  height: 100%;
+  background-repeat: no-repeat;    /*background-image: linear-gradient(rgb(12, 97, 33),rgb(104, 145, 162));*/
+  background:black;
+  position: relative;
+}
+.navbar.navbar-default.navbar-inverse {
+    z-index: 3;
+}
+#particles-js{
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+    position: fixed;
+    top: 0px;
+    z-index:1;
+}
+.dropdown {
+  margin-left: 250px;
+
+}
+.dropdown-toggle:{
+  margin-left:250px;
+}
+.dropdown-toggle:hover .dropdown{
+  background-color: #F39C12;
+  color: #009688;
+
+}
+.navbar-inverse {
+    background-color: #19232D;
+    border-color: #34495E;
+}
+
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+    border: 0px solid transparent;
+    border-radius:0px;
+
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #F39C12;
+}
+.navbar-inverse .navbar-nav > li > a:hover {
+   background-color: #009688;
+}
+
+.btn-default {
+    color: #333;
+    background-color: #009688;
+    border-color: #009688;
+    border-radius:0px;
+    color:#F39C12;
+}
+
+#blog-section{margin-top:40px;margin-bottom:80px;}
+
+.btn-default:hover {
+background-color: #F39C12;
+color: #fff;
+}
+
+aside{
+  width: auto;
+  height: auto;
+    margin-top: 30px;
+    -webkit-box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);
+-moz-box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);
+box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);}
+
+.img-responsive {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+
+.user-ditels1 {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    right: 0;
+    background-color: #19232D;
+    overflow: hidden;
+    width: 0;
+    height: 100%;
+    transition: .5s ease;
+    z-index: 1;
+}
+.containImage{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+@media (max-width:768px){
+    .user-ditels {
+    right: 5px;
+}
+    aside {
+      width: 50%;
+      height: 75%;
+      margin: auto;
+    }
+    .navbar-nav {
+      margin: 0px;
+}
+  .dropdown {
+  margin-left: 0px;
+
+}
+.dropdown-toggle:{
+  margin-left:0px;
+}
+
+}
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+    overflow:hidden;
+    background-color:rgba(255,255,255,.8);
+}
+#login-dp .bottom{
+    background-color:#F39C12;
+    border-top:1px solid #ddd;
+    clear:both;
+    padding:14px;
+}
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+
+@media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+    .user-full-ditels h4 h5 p{
+      font-size: 75%;
+      line-height: 1.25;
+    }
+     .user-full-ditels hr{
+      display: none;
+    }
+
+
+}
+@media(max-width:460px){
+    .user-full-ditels h4{
+      font-size: 80%;
+    }
+    .user-full-ditels h5 {
+      font-size: 75%;
+    }
+    .user-full-ditels p{
+      font-size: 70%;
+    }
+
+}
+
+.containImage:hover .user-ditels1 {
+  width: 100%;
+  left: 0;
+}
+.user-full-ditels h4{
+    color: #fff;
+    display: block;
+    margin: 0px;
+    padding:10px;
+
+}
+.user-full-ditels h5{
+    color: #fff;
+    display: block;
+    margin: 0px;
+    padding:10px;
+
+}
+.user-full-ditels p{
+    color: #fff;
+    display: block;
+    margin: 0px;
+     padding-right: 15px;
+     padding-left: 15px;
+    padding-top: 5px;
+  }
+</style>
+      <script src="https://use.fontawesome.com/07b0ce5d10.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+  	<div class="container">
+   		<div class="navbar-collapse" id="myNavbar">
+      		<ul class="nav navbar-nav">
+          <li>
+              <ul class="nav navbar-nav navbar-right">
+                            		<form class="navbar-form navbar-left">
+  						  <div class="input-group">
+  							 <input type="text" class="form-control" placeholder="Search movie">
+    						  <div class="input-group-btn">
+      							<button class="btn btn-default" type="submit">
+        							<i class="glyphicon glyphicon-search"></i>
+        						</button>
+    						  </div>
+    					 </div>
+					    </form>
+				    </ul>
+          </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+            <ul id="login-dp" class="dropdown-menu">
+              <li>
+                <div class="row">
+                  <div class="col-md-12">
+                      <form class="form" role="form" method="post" action="" accept-charset="UTF-8" id="login-nav">
+                        {% csrf_token %}
+                        <div class="form-group">
+                          <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                           <input class="form-control" type="text" name="username" placeholder="Utilisateur" >
+                        </div>
+                        <div class="form-group">
+                          <label class="sr-only" for="exampleInputPassword2">Password</label>
+                          <input class="form-control" type="password" name="password" placeholder="Mot de passe" >
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-primary btn-block" name="sign">Sign in</button>
+                        </div>
+                      </form>
+                  </div>
+                  <br><br>
+                <div class="bottom text-center">
+                  New here ? <a href="#"><b>Join Us</b></a>
+                </div>
+
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+    	</div>
+  	</div>
+</nav>
+
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <div id="particles-js"></div>
+	 <script>
+
+$.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js", function(){
+    particlesJS('particles-js',
+      {
+        "particles": {
+          "number": {
+            "value": 80,
+            "density": {
+              "enable": true,
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#ffffff"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            },
+            "polygon": {
+              "nb_sides": 5
+            },
+            "image": {
+              "width": 100,
+              "height": 100
+            }
+          },
+          "opacity": {
+            "value": 0.5,
+            "random": false,
+            "anim": {
+              "enable": false,
+              "speed": 1,
+              "opacity_min": 0.1,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 5,
+            "random": true,
+            "anim": {
+              "enable": false,
+              "speed": 40,
+              "size_min": 0.1,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": true,
+            "distance": 150,
+            "color": "#ffffff",
+            "opacity": 0.4,
+            "width": 1
+          },
+          "move": {
+            "enable": true,
+            "speed": 6,
+            "direction": "none",
+            "random": false,
+            "straight": false,
+            "out_mode": "out",
+            "attract": {
+              "enable": false,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": true,
+              "mode": "repulse"
+            },
+            "onclick": {
+              "enable": true,
+              "mode": "push"
+            },
+            "resize": true
+          },
+          "modes": {
+            "grab": {
+              "distance": 400,
+              "line_linked": {
+                "opacity": 1
+              }
+            },
+            "bubble": {
+              "distance": 400,
+              "size": 40,
+              "duration": 2,
+              "opacity": 8,
+              "speed": 3
+            },
+            "repulse": {
+              "distance": 200
+            },
+            "push": {
+              "particles_nb": 4
+            },
+            "remove": {
+              "particles_nb": 2
+            }
+          }
+        },
+        "retina_detect": true,
+        "config_demo": {
+          "hide_card": false,
+          "background_color": "#b61924",
+          "background_image": "",
+          "background_position": "50% 50%",
+          "background_repeat": "no-repeat",
+          "background_size": "cover"
+        }
+      }
+    );
+
+});
+</script>
+</body>
+</html>
