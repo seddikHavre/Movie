@@ -4,8 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    url(r'^index/', views.index, name='index'),
-    url(r'^logout/$', views.getout, name='logout'),
+    url(r'^index/$', views.index, name='index'),
+    url(r'^logout/$', views.logout, name='logout'),
     url(r'^log/$', views.profile, name='profile'),
-
 ]
