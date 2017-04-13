@@ -5,16 +5,10 @@
   <head>
     <meta charset="utf-8">
     <title>Les films les mieux notés </title>
-      <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-	  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+      {% bootstrap_css %}
+      {% bootstrap_javascript %}
       <style type="text/css">
 
-body, html {
-  height: 100%;
-  background-repeat: no-repeat;    /*background-image: linear-gradient(rgb(12, 97, 33),rgb(104, 145, 162));*/
-  background:black;
-  position: relative;
-}
 .navbar.navbar-default.navbar-inverse {
     z-index: 3;
 }
@@ -27,53 +21,10 @@ body, html {
     top: 0px;
     z-index:1;
 }
-.dropdown {
-  margin-left: 250px;
 
-}
-.dropdown-toggle:{
-  margin-left:250px;
-}
-.dropdown-toggle:hover .dropdown{
-  background-color: #F39C12;
-  color: #009688;
-
-}
-.navbar-inverse {
-    background-color: #19232D;
-    border-color: #34495E;
-}
-
-.navbar {
-    position: relative;
-    min-height: 50px;
-    margin-bottom: 20px;
-    border: 0px solid transparent;
-    border-radius:0px;
-
-}
-
-.navbar-inverse .navbar-nav > li > a {
-    color: #F39C12;
-}
-.navbar-inverse .navbar-nav > li > a:hover {
-   background-color: #009688;
-}
-
-.btn-default {
-    color: #333;
-    background-color: #009688;
-    border-color: #009688;
-    border-radius:0px;
-    color:#F39C12;
-}
 
 #blog-section{margin-top:40px;margin-bottom:80px;}
 
-.btn-default:hover {
-background-color: #F39C12;
-color: #fff;
-}
 
 aside{
   width: auto;
@@ -95,7 +46,7 @@ box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);}
     bottom: 0;
     left: 100%;
     right: 0;
-    background-color: #19232D;
+    background-color: #222222;
     overflow: hidden;
     width: 0;
     height: 100%;
@@ -118,13 +69,7 @@ box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);}
       height: 75%;
       margin: auto;
     }
-    .navbar-nav {
-      margin: 0px;
-}
-  .dropdown {
-  margin-left: 0px;
 
-}
 .dropdown-toggle:{
   margin-left:0px;
 }
@@ -137,16 +82,21 @@ box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);}
     background-color:rgba(255,255,255,.8);
 }
 #login-dp .bottom{
-    background-color:#F39C12;
+    background-color:#222222;
     border-top:1px solid #ddd;
     clear:both;
     padding:14px;
+    color: white;
 }
+
 #login-dp .form-group {
     margin-bottom: 10px;
 }
 
 @media(max-width:768px){
+    .navbar-nav {
+    margin: 0;
+    }
     #login-dp{
         background-color: inherit;
         color: #fff;
@@ -174,6 +124,9 @@ box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);}
     }
     .user-full-ditels p{
       font-size: 70%;
+    }
+    .navbar-nav {
+        margin: 0;
     }
 
 }
@@ -205,6 +158,7 @@ box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);}
     padding-top: 5px;
   }
 </style>
+
       <script src="https://use.fontawesome.com/07b0ce5d10.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </head>
@@ -219,7 +173,7 @@ box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);}
               <ul class="nav navbar-nav navbar-right">
                             		<form class="navbar-form navbar-left">
   						  <div class="input-group">
-  							 <input type="text" class="form-control" placeholder="Search movie">
+  							 <input type="text" class="form-control" placeholder="Chercher un film">
     						  <div class="input-group-btn">
       							<button class="btn btn-default" type="submit">
         							<i class="glyphicon glyphicon-search"></i>
@@ -230,12 +184,12 @@ box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);}
 				    </ul>
           </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Identifier vous</b> <span class="caret"></span></a>
             <ul id="login-dp" class="dropdown-menu">
               <li>
                 <div class="row">
                   <div class="col-md-12">
-                      <form class="form" role="form" method="post" action="" accept-charset="UTF-8" id="login-nav">
+                      <form class="form" role="form" method="post" action="{% url 'login' %}" accept-charset="UTF-8" id="login-nav">
                         {% csrf_token %}
                         <div class="form-group">
                           <label class="sr-only" for="exampleInputEmail2">Email address</label>
@@ -246,13 +200,13 @@ box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);}
                           <input class="form-control" type="password" name="password" placeholder="Mot de passe" >
                         </div>
                         <div class="form-group">
-                          <button type="submit" class="btn btn-primary btn-block" name="sign">Sign in</button>
+                          <button type="submit" class="btn btn-primary btn-block" name="sign">Connecter</button>
                         </div>
                       </form>
                   </div>
                   <br><br>
                 <div class="bottom text-center">
-                  New here ? <a href="#"><b>Join Us</b></a>
+                  vous êtes inscrit ? <a href="#"><b>rejoignez nous</b></a>
                 </div>
 
               </div>
@@ -264,7 +218,32 @@ box-shadow: 1px 1px 10px 1px rgba(145,145,145,145);}
     	</div>
   	</div>
 </nav>
-
+    <section id="blog-section" >
+     	<div class="container">
+      <div class="row">
+        <div class="row">
+        {% for item in list %}
+          <div class="col-md-3">
+            <aside>
+            <div class="containImage">
+              <img src="{{item.mage}}" class="img-responsive">
+                <div class="user-ditels1">
+                  <span class="user-full-ditels">
+                    <h4>{{item.title}}</h4>
+                    <p>{{item.stroyline}}</p>
+                    <h4><hr></h4>
+                    <h5>Director : {{item.director}}</h5>
+                    <h5>Release date: {{item.date}}</h5>
+                  </span>
+                </div>
+            </div>
+            </aside>
+          </div>
+        {%endfor%}
+        </div>
+      </div>
+    </div>
+  </section>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <div id="particles-js"></div>
 	 <script>
@@ -281,13 +260,13 @@ $.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles
             }
           },
           "color": {
-            "value": "#ffffff"
+            "value": "#222222"
           },
           "shape": {
             "type": "circle",
             "stroke": {
               "width": 0,
-              "color": "#000000"
+              "color": "#ffffff"
             },
             "polygon": {
               "nb_sides": 5
@@ -320,9 +299,9 @@ $.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles
           "line_linked": {
             "enable": true,
             "distance": 150,
-            "color": "#ffffff",
-            "opacity": 0.4,
-            "width": 1
+            "color": "#222222",
+            "opacity": 0.5,
+            "width": 2
           },
           "move": {
             "enable": true,
@@ -342,11 +321,11 @@ $.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles
           "detect_on": "canvas",
           "events": {
             "onhover": {
-              "enable": true,
+              "enable": false,
               "mode": "repulse"
             },
             "onclick": {
-              "enable": true,
+              "enable": false,
               "mode": "push"
             },
             "resize": true
@@ -377,14 +356,6 @@ $.getScript("https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles
           }
         },
         "retina_detect": true,
-        "config_demo": {
-          "hide_card": false,
-          "background_color": "#b61924",
-          "background_image": "",
-          "background_position": "50% 50%",
-          "background_repeat": "no-repeat",
-          "background_size": "cover"
-        }
       }
     );
 

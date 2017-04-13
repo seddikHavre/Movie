@@ -17,7 +17,7 @@ class Movies(models.Model):
 
     @classmethod
     def create(cls, t, l, i, s, d, dire):
-        m = cls(titre=t, link=l, image=i, stroyline=s, date=d, director=dire)
+        m = cls(title=t, mage=i, stroyline=s, date=d, director=dire)
         return m
 
 
