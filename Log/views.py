@@ -17,7 +17,7 @@ import requests
 def CompleteFieldMovie(listMovie):
     '''
     :param listMovie:
-    :return: une liste
+    :return: une liste de films, avec tout les champs rempli en utilisant beautifullsoup
     '''
     for item in listMovie:
         lien = "http://www.imdb.com/title/tt" + item.imdbId + "/"
