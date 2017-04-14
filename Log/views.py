@@ -15,6 +15,10 @@ import requests
 
 
 def CompleteFieldMovie(listMovie):
+    '''
+    :param listMovie:
+    :return: une liste
+    '''
     for item in listMovie:
         lien = "http://www.imdb.com/title/tt" + item.imdbId + "/"
         soup = BeautifulSoup(requests.get(lien).content)
@@ -37,6 +41,14 @@ def index(request, **kwargs):
     :param kwargs: 
     :return: si l'utilisateur s'est authentifier alors redirection vers son profils 
              sinon l'utilisateur reste toujour dans la page d'acceuil
+             username : cgrant0
+             password : zak
+             **********************
+             username : trichardson1
+             password : seddik
+             *********************
+             username : pellis2
+             password : larbi
     '''
     popular = mod.Rate.objects.annotate(average_rating=Avg('rating')).order_by("-average_rating")[0:10]
     listMovie = list()
